@@ -1,0 +1,29 @@
+<?php
+	function my_theme_enqueue_styles() {
+		$parent_style = 'storefront-style'; // This is 'twentyfifteen-style' for the Twenty Fifteen theme.
+		wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
+		wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( $parent_style ), wp_get_theme()->get('Version') );
+	}
+	add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
+?>
+
+<?php
+	// Personaliz el footer por defecto de Storefront y añadir uno personalizado
+	add_action( 'init', 'hch_eliminar_footer_storefront', 10 );
+	function hch_eliminar_footer_storefront() {
+		remove_action( 'storefront_footer', 'storefront_credit', 20 );
+		add_action( 'storefront_footer', 'hch_personalizar_footer_storefront', 10 );
+	}
+
+	// Personaliz el footer por defecto de Storefront y añadir uno personalizado
+	function hch_personalizar_footer_storefront() {
+	?>
+		<div class="site-info">
+			&copy; <?php echo get_the_date( 'Y' ) . ' ' . get_bloginfo( 'name' ) ; ?>
+			<p> 
+				<?php echo get_bloginfo( 'description' ); ?>
+			</p>
+		</div>
+	<?php
+	}
+?>
