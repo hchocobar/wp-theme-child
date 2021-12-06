@@ -1,15 +1,15 @@
 <?php
 function my_theme_enqueue_styles() {
-  // in line 4 replace 'parent-theme' for the theme's name that your choose
-  $parenthandle = 'parent-theme-style';  // replace here
+  // en la línea 4 reemplaza 'parent-theme' por el nombre del tema padre que elegiste
+  $parenthandle = 'parent-theme-style';  // reemplace aquí
   $theme = wp_get_theme();
   wp_enqueue_style( $parenthandle, get_template_directory_uri() . '/style.css',
-      array(),  // if the parent theme code has a dependency, copy it to here
+      array(),  // si el código del tema padre tiene una dependencia, copiala aquí
       $theme->parent()->get('Version')
   );
   wp_enqueue_style( 'child-style', get_stylesheet_uri(),
       array( $parenthandle ),
-      $theme->get('Version') // this only works if you have Version in the style header
+      $theme->get('Version') // esto, solo se ejecuta si tienes Version en el encabezado del style
   );
 }
 
